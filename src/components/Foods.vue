@@ -70,6 +70,8 @@
 </template>
 
 <script>
+import GetAuthorizationHeader from '../lib/Authorization.js'
+
 export default {
   name: 'Foods',
   data () {
@@ -90,7 +92,7 @@ export default {
   },
   methods: {
     async fetchEvents () {
-      return await fetch(this.url).then((response) => response.json())
+      return await fetch(this.url, { headers: GetAuthorizationHeader() }).then((response) => response.json())
     },
     async initFirstPage () {
       // API 抓資料
