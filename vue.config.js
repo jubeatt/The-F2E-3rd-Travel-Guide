@@ -1,9 +1,6 @@
 // 設定首頁路徑
 module.exports = {
-  publicPath: process.env.NODE_ENV === 'production' ? '/The-F2E-3rd-Travel-Guide/' : '/'
-}
-// 引入全域 SCSS 檔案
-module.exports = {
+  publicPath: process.env.NODE_ENV === 'production' ? '/The-F2E-3rd-Travel-Guide/' : '/',
   css: {
     loaderOptions: {
       sass: {

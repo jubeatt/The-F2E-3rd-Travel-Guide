@@ -14,6 +14,6 @@ git add -A
 git commit -m 'deploy'
 
 # 部署到 https://<USERNAME>.github.io/<REPO>
-git push -f https://github.com/jubeatt/practice.git master:gh-pages
+git push -f https://github.com/jubeatt/The-F2E-3rd-Travel-Guide.git master:gh-pages
 
 cd -
