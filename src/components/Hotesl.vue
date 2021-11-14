@@ -1,17 +1,17 @@
 <template>
   <section class="section-multiple">
     <div class="section-multiple__container">
-      <h2 class="heading heading--square" id="foodsHeading">全臺灣餐飲總覽</h2>
+      <h2 class="heading heading--square" id="hotelsHeading">全臺灣旅宿總覽</h2>
       <div class="section-multiple__group">
         <!-- API抓資料 -->
-        <template v-for="food in foods" :key="food.ID">
-          <a @click.prevent="openModal(food)" href="#" class="card-portrait section-multiple__item floating-effect">
+        <template v-for="hotel in hotels" :key="hotel.ID">
+          <a @click.prevent="openModal(hotel)" href="#" class="card-portrait section-multiple__item floating-effect">
             <span class="card-portrait__mask"></span>
             <div class="card-portrait__content">
-              <img class="card-portrait__img" :src="isProvideImage(food.Picture.PictureUrl1)" :alt="food.Picture.PictureDescription1 ? food.Picture.PictureDescription1 : '未提供'">
-              <h3 class="card-portrait__name">{{ food.Name }}</h3>
+              <img class="card-portrait__img" :src="isProvideImage(hotel.Picture.PictureUrl1)" :alt="hotel.Picture.PictureDescription1 ? hotel.Picture.PictureDescription1 : '未提供'">
+              <h3 class="card-portrait__name">{{ hotel.Name }}</h3>
               <address class="card-portrait__address">
-                <i class="card-portrait__icon fas fa-map-marker-alt"></i>{{ food.City }}
+                <i class="card-portrait__icon fas fa-map-marker-alt"></i>{{ hotel.City }}
               </address>
             </div>
           </a>
@@ -38,16 +38,16 @@
       <div class="modal__information-group">
         <div class="modal__information-item">
           <div class="modal__information-content">
-            <i class="modal__information-icon far fa-clock"></i>
-            <p class="modal__information-text">{{ changeOpenTime(modal.content.OpenTime) }}</p>
+            <i class="modal__information-icon fas fa-dollar-sign"></i>
+            <p class="modal__information-text">{{ checkSpec(modal.content.Spec) }}</p>
           </div>
           <div class="modal__information-content">
             <i class="modal__information-icon fas fa-map-marker-alt"></i>
             <a class="modal__information-text" :class="{ 'disabled-link' : !modal.content.MapUrl}" :href="modal.content.MapUrl ? modal.content.MapUrl : '#'" target="_blank">{{ modal.content.Address }}</a>
           </div>
            <div class="modal__information-content">
-            <i class="modal__information-icon fas fa-parking"></i>
-            <p class="modal__information-text">{{ checkParkingInfo(modal.content.ParkingInfo) }}</p>
+            <i class="modal__information-icon fas fa-star"></i>
+            <p class="modal__information-text">{{ checkGrade(modal.content.Grade ) }}</p>
           </div>
         </div>
         <div class="modal__information-item">
@@ -71,14 +71,14 @@
 
 <script>
 export default {
-  name: 'Foods',
+  name: 'Hotels',
   data () {
     return {
       // 過濾 City 值為 null、根據經度由北到南排序、跳過前120筆資料
-      url: 'https://ptx.transportdata.tw/MOTC/v2/Tourism/Restaurant?$filter=City%20ne%20null&$orderby=Position%2FPositionLat%20desc&$top=400&$skip=120&$format=JSON',
+      url: 'https://ptx.transportdata.tw/MOTC/v2/Tourism/Hotel?$filter=City%20ne%20null&$orderby=Position%2FPositionLat%20desc&$top=400&$skip=166&$format=JSON',
       defaultImageUrl: require('@/assets/images/default.png'),
-      foods: null,
-      cacheFoods: [],
+      hotels: null,
+      cacheHotels: [],
       pagination: {},
       modal: {
         content: null,
@@ -89,14 +89,14 @@ export default {
     }
   },
   methods: {
-    async fetchEvents () {
+    async fetchHotels () {
       return await fetch(this.url).then((response) => response.json())
     },
     async initFirstPage () {
       // API 抓資料
-      this.cacheFoods = await this.fetchEvents()
+      this.cacheHotels = await this.fetchHotels()
       // 總共有幾筆資料
-      this.pagination.totalResults = this.cacheFoods.length
+      this.pagination.totalResults = this.cacheHotels.length
       // 每一頁要顯示幾筆資料
       this.pagination.perPage = 8
       // 總頁數
@@ -104,7 +104,7 @@ export default {
       // 目前頁數
       this.pagination.currentPage = 1
       // 根據目前頁數來過濾出需要的資料（用來顯示）
-      this.foods = this.filterCurrentData(this.cacheFoods)
+      this.hotels = this.filterCurrentData(this.cacheHotels)
     },
     filterCurrentData (totalData) {
       // 儲存過濾後的資料
@@ -145,11 +145,11 @@ export default {
       this.modal.pictureLength = 1
       this.modal.isOpen = false
     },
-    changeOpenTime (timeString) {
-      if (!timeString) {
-        return '未提供營業時間'
+    checkSpec (text) {
+      if (!text) {
+        return '未提供價目資料'
       } else {
-        return timeString
+        return text
       }
     },
     checkClass (classString) {
@@ -200,14 +200,14 @@ export default {
     },
     checkWebsiteUrl (url) {
       if (!url) {
-        return '未提供店家網站'
+        return '未提供旅宿網站'
       } else {
-        return '店家網站'
+        return '旅宿網站'
       }
     },
-    checkParkingInfo (text) {
+    checkGrade (text) {
       if (!text) {
-        return '未提供停車資訊'
+        return '未提供星級資料'
       } else {
         return text
       }
@@ -230,8 +230,8 @@ export default {
   watch: {
     'pagination.currentPage': function () {
       // 更新顯示的資料
-      this.foods = this.filterCurrentData(this.cacheFoods)
-      // document.querySelector('#foodsHeading').scrollIntoView(true)
+      this.hotels = this.filterCurrentData(this.cacheHotels)
+      // document.querySelector('#hotelsHeading').scrollIntoView(true)
     }
   }
 }

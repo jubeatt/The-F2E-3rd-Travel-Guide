@@ -19,13 +19,13 @@
                 <ul class="menu-list">
                   <li class="menu-list__item">
                     <span class="menu-list__icon menu-list__icon--triangle"></span>
-                    <router-link to="/ScenicSpot" class="menu-list__link">
+                    <router-link to="/EventsAndScenicSpot" class="menu-list__link">
                       景點活動
                     </router-link>
                   </li>
                   <li class="menu-list__item">
                     <span class="menu-list__icon menu-list__icon--square"></span>
-                      <router-link to="/Food" class="menu-list__link">
+                      <router-link to="/FoodAndHotel" class="menu-list__link">
                       美食住宿
                     </router-link>
                   </li>

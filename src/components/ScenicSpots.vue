@@ -1,18 +1,26 @@
 <template>
-  <section class="section-multiple">
-    <div class="section-multiple__container">
-      <h2 class="heading heading--square" id="foodsHeading">全臺灣餐飲總覽</h2>
-      <div class="section-multiple__group">
+  <section class="section-single">
+    <div class="section-single__container">
+      <h2 class="heading heading--square" id="scenicSpotsHeading">全臺灣景點總覽</h2>
+      <div class="section-single__group">
         <!-- API抓資料 -->
-        <template v-for="food in foods" :key="food.ID">
-          <a @click.prevent="openModal(food)" href="#" class="card-portrait section-multiple__item floating-effect">
-            <span class="card-portrait__mask"></span>
-            <div class="card-portrait__content">
-              <img class="card-portrait__img" :src="isProvideImage(food.Picture.PictureUrl1)" :alt="food.Picture.PictureDescription1 ? food.Picture.PictureDescription1 : '未提供'">
-              <h3 class="card-portrait__name">{{ food.Name }}</h3>
-              <address class="card-portrait__address">
-                <i class="card-portrait__icon fas fa-map-marker-alt"></i>{{ food.City }}
-              </address>
+        <template v-for="scenicSpot in scenicSpots" :key="scenicSpot.ID">
+          <a @click.prevent="openModal(scenicSpot)" href="#" class="card-landscape section-single__item floating-effect">
+            <span class="card-landscape__mask"></span>
+            <div class="card-landscape__content">
+              <div class="card-landscape__picture">
+                <img class="card-landscape__img" :src="isProvideImage(scenicSpot.Picture.PictureUrl1)" :alt="scenicSpot.Picture.PictureDescription1 ? scenicSpot.Picture.PictureDescription1 : '未提供'">
+              </div>
+              <div class="card-landscape__text">
+                <h3 class="card-landscape__name">{{ scenicSpot.Name }}</h3>
+                <p class="card-landscape__description">{{ checkTextLength(scenicSpot.DescriptionDetail) }}</p>
+                <div class="card-landscape__info">
+                  <address class="card-landscape__address">
+                    <i class="card-landscape__icon fas fa-map-marker-alt"></i>{{ scenicSpot.City }}
+                  </address>
+                  <button class="button-detail card-landscape__button">景點詳情</button>
+                </div>
+              </div>
             </div>
           </a>
         </template>
@@ -34,7 +42,7 @@
         <button class="modal__button-next button-direction button-direction--next" :class="{ 'button-direction--disabled' : modal.pictureIndex === modal.pictureLength }" :disabled="modal.pictureIndex === modal.pictureLength" @click="changePicture(1)"></button>
       </div>
       <h3 class="modal__title">{{ modal.content.Name }}</h3>
-      <p class="modal__description">{{ modal.content.Description }}</p>
+      <p class="modal__description">{{ modal.content.DescriptionDetail }}</p>
       <div class="modal__information-group">
         <div class="modal__information-item">
           <div class="modal__information-content">
@@ -43,21 +51,21 @@
           </div>
           <div class="modal__information-content">
             <i class="modal__information-icon fas fa-map-marker-alt"></i>
-            <a class="modal__information-text" :class="{ 'disabled-link' : !modal.content.MapUrl}" :href="modal.content.MapUrl ? modal.content.MapUrl : '#'" target="_blank">{{ modal.content.Address }}</a>
+            <a class="modal__information-text" :class="{ 'disabled-link' : !modal.content.MapUrl }" :href="modal.content.MapUrl ? modal.content.MapUrl : '#'" target="_blank">{{ modal.content.Address }}</a>
           </div>
            <div class="modal__information-content">
-            <i class="modal__information-icon fas fa-parking"></i>
-            <p class="modal__information-text">{{ checkParkingInfo(modal.content.ParkingInfo) }}</p>
+            <i class="modal__information-icon fas fa-tags"></i>
+            <p class="modal__information-text">{{ checkClass(modal.content.Class1, modal.content.Class2, modal.content.Class3) }}</p>
           </div>
         </div>
         <div class="modal__information-item">
           <div class="modal__information-content">
-            <i class="modal__information-icon fas fa-tags"></i>
-            <p class="modal__information-text">{{ checkClass(modal.content.Class) }}</p>
+            <i class="modal__information-icon fas fa-ticket-alt"></i>
+            <p class="modal__information-text">{{ checkTicketInfo(modal.content.TicketInfo) }}</p>
           </div>
-           <div class="modal__information-content">
+          <div class="modal__information-content">
             <i class="modal__information-icon fas fa-globe-americas"></i>
-            <a class="modal__information-text" :class="{ 'disabled-link' : !modal.content.WebsiteUrl }" :href="modal.content.WebsiteUrl ? modal.content.WebsiteUrl : '#'" target="_blank">{{ checkWebsiteUrl(modal.content.WebsiteUrl ) }}</a>
+            <a class="modal__information-text" :class="{ 'disabled-link' : !modal.content.WebsiteUrl }" :href="modal.content.WebsiteUrl ? modal.content.WebsiteUrl : '#'" target="_blank">{{ checkWebsiteUrl(modal.content.WebsiteUrl) }}</a>
           </div>
           <div class="modal__information-content">
             <i class="modal__information-icon fas fa-phone-alt"></i>
@@ -71,14 +79,14 @@
 
 <script>
 export default {
-  name: 'Foods',
+  name: 'ScenicSpots',
   data () {
     return {
-      // 過濾 City 值為 null、根據經度由北到南排序、跳過前120筆資料
-      url: 'https://ptx.transportdata.tw/MOTC/v2/Tourism/Restaurant?$filter=City%20ne%20null&$orderby=Position%2FPositionLat%20desc&$top=400&$skip=120&$format=JSON',
+      // 過濾 City 值為 null、根據經度由北到南排序、跳過前90筆資料
+      url: 'https://ptx.transportdata.tw/MOTC/v2/Tourism/ScenicSpot?$filter=City%20ne%20null%20and%20DescriptionDetail%20ne%20null&$orderby=Position%2FPositionLat%20desc&$top=400&$skip=90&$format=JSON',
       defaultImageUrl: require('@/assets/images/default.png'),
-      foods: null,
-      cacheFoods: [],
+      scenicSpots: null,
+      cacheScenicSpots: [],
       pagination: {},
       modal: {
         content: null,
@@ -89,22 +97,22 @@ export default {
     }
   },
   methods: {
-    async fetchEvents () {
+    async fetchScenicSpots () {
       return await fetch(this.url).then((response) => response.json())
     },
     async initFirstPage () {
       // API 抓資料
-      this.cacheFoods = await this.fetchEvents()
+      this.cacheScenicSpots = await this.fetchScenicSpots()
       // 總共有幾筆資料
-      this.pagination.totalResults = this.cacheFoods.length
+      this.pagination.totalResults = this.cacheScenicSpots.length
       // 每一頁要顯示幾筆資料
-      this.pagination.perPage = 8
+      this.pagination.perPage = 4
       // 總頁數
       this.pagination.totalPages = Math.ceil(this.pagination.totalResults / this.pagination.perPage)
       // 目前頁數
       this.pagination.currentPage = 1
       // 根據目前頁數來過濾出需要的資料（用來顯示）
-      this.foods = this.filterCurrentData(this.cacheFoods)
+      this.scenicSpots = this.filterCurrentData(this.cacheScenicSpots)
     },
     filterCurrentData (totalData) {
       // 儲存過濾後的資料
@@ -118,6 +126,24 @@ export default {
         }
       })
       return result
+    },
+    checkTextLength (text) {
+      // 最大字數限制
+      const maxLength = 100
+      // 儲存結果字串
+      let resultString = ''
+      // 判斷是否超過最大字數限制
+      if (text.length > maxLength) {
+        // 選取第 0 ~ 100 之間的文字
+        const selectedText = text.slice(0, 100)
+        // 字尾加上 '...'
+        resultString = selectedText.concat('...')
+        // 回傳結果字串
+        return resultString
+      } else {
+        // 回傳原始字串
+        return text
+      }
     },
     isProvideImage (imgUrl) {
       if (!imgUrl) {
@@ -145,18 +171,13 @@ export default {
       this.modal.pictureLength = 1
       this.modal.isOpen = false
     },
-    changeOpenTime (timeString) {
-      if (!timeString) {
-        return '未提供營業時間'
+    checkDate (startDateString, endDateString) {
+      if (!startDateString || !endDateString) {
+        return '未提供活動日期'
       } else {
-        return timeString
-      }
-    },
-    checkClass (classString) {
-      if (!classString) {
-        return '未分類'
-      } else {
-        return classString
+        const startDate = new Date(startDateString).toLocaleDateString()
+        const endDate = new Date(endDateString).toLocaleDateString()
+        return startDate + '～' + endDate
       }
     },
     checkPictureUrl (pictureObject) {
@@ -191,6 +212,27 @@ export default {
         this.modal.pictureIndex = 1
       }
     },
+    changeOpenTime (timeString) {
+      if (!timeString) {
+        return '未提供營業時間'
+      } else {
+        return timeString
+      }
+    },
+    checkTicketInfo (infoString) {
+      if (infoString) {
+        return infoString
+      } else {
+        return '免費'
+      }
+    },
+    checkWebsiteUrl (url) {
+      if (!url) {
+        return '未提供景點網站'
+      } else {
+        return '景點網站'
+      }
+    },
     checkPhone (phone) {
       if (!phone) {
         return '未提供聯絡資料'
@@ -198,18 +240,15 @@ export default {
         return phone
       }
     },
-    checkWebsiteUrl (url) {
-      if (!url) {
-        return '未提供店家網站'
+    checkClass (class1, class2, class3) {
+      if (class1 && class2 && class3) {
+        return class1 + '、' + class2 + '、' + class3
+      } else if (class1 && class2) {
+        return class1 + '、' + class2
+      } else if (class1) {
+        return class1
       } else {
-        return '店家網站'
-      }
-    },
-    checkParkingInfo (text) {
-      if (!text) {
-        return '未提供停車資訊'
-      } else {
-        return text
+        return '未分類'
       }
     }
   },
@@ -230,8 +269,8 @@ export default {
   watch: {
     'pagination.currentPage': function () {
       // 更新顯示的資料
-      this.foods = this.filterCurrentData(this.cacheFoods)
-      // document.querySelector('#foodsHeading').scrollIntoView(true)
+      this.scenicSpots = this.filterCurrentData(this.cacheScenicSpots)
+      // document.querySelector('#eventsHeading').scrollIntoView(true)
     }
   }
 }
