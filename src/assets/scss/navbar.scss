@@ -1,0 +1,101 @@
+.navbar {
+  // 給 search-button 定位
+  position: relative;
+  // 避免被下一層區塊給覆蓋
+  z-index: 100;
+  background-color: var(--white);
+  @include mediaQuery-tablet {
+    &__mask {
+      position: absolute;
+      top: 0;
+      right: 0;
+      left: 0;
+      bottom: 0;
+      z-index: 2;
+      background-color: var(--white);
+    }
+    &__content {
+      position: relative;
+      z-index: 3;
+    }
+    &::before,
+    &::after {
+      content: '';
+      pointer-events: none;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      position: absolute;
+      top: 100%;
+      width: 50%;
+      height: 45px;
+      opacity: 0.3;
+      -webkit-filter: blur(4px);
+      filter: blur(4px);
+      transform: translateY(-25px);
+      z-index: 1;
+      @include mediaQuery-pc {
+        display: none;
+      }
+    }
+    &::before {
+      right: 8px;
+      background: linear-gradient(
+        to top right,
+        #fff 0%,
+        #fff 50%,
+        #0d0b0c 50%,
+        #0d0b0c 100%
+      );
+    }
+    &::after {
+      left: 8px;
+      background: linear-gradient(
+        to top left,
+        #fff 0%,
+        #fff 50%,
+        #0d0b0c 50%,
+        #0d0b0c 100%
+      );
+    }
+  }
+  &__container {
+    padding: 15px;
+    @include mediaQuery-tablet {
+      padding: 30px 15px;
+      max-width: 960px;
+      margin: auto;
+    }
+    @include mediaQuery-pc {
+      max-width: 1280px;
+    }
+  }
+  &__group {
+    @include mediaQuery-tablet {
+      display: flex;
+      align-items: flex-end;
+    }
+  }
+  &__logo {
+    margin: auto;
+    @include mediaQuery-tablet {
+      margin: 0;
+    }
+  }
+  &__navigation {
+    margin-top: 15px;
+  }
+  &__button-search {
+    position: absolute;
+    top: 33px;
+    right: 15px;
+    @include mediaQuery-tablet {
+      display: none;
+    }
+  }
+}
+// active-class
+.router-link-active {
+  color: var(--pink);
+}

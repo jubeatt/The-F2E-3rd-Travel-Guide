@@ -1,0 +1,118 @@
+.search {
+  position: relative;
+  // 避免被下面區塊覆蓋
+  z-index: 100;
+  background-color: var(--white);
+  @include mediaQuery-tablet {
+    background-color: var(--gray-03);
+  }
+  @include mediaQuery-pc {
+    background-color: var(--white);
+  }
+  &__mask {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 2;
+    background-color: var(--white);
+  }
+  &__content {
+    position: relative;
+    z-index: 3;
+  }
+  &::before,
+  &::after {
+    content: '';
+    pointer-events: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    position: absolute;
+    top: 100%;
+    width: 50%;
+    height: 45px;
+    opacity: 0.3;
+    -webkit-filter: blur(8px);
+    filter: blur(8px);
+    transform: translateY(-25px);
+    z-index: 1;
+    @include mediaQuery-tablet {
+      display: none;
+    }
+  }
+  &::before {
+    right: 10px;
+    background: linear-gradient(
+      to top right,
+      #fff 0%,
+      #fff 50%,
+      #0d0b0c 50%,
+      #0d0b0c 100%
+    );
+    @include mediaQuery-pc {
+      right: 0;
+    }
+  }
+  &::after {
+    left: 10px;
+    background: linear-gradient(
+      to top left,
+      #fff 0%,
+      #fff 50%,
+      #0d0b0c 50%,
+      #0d0b0c 100%
+    );
+    @include mediaQuery-pc {
+      left: 0;
+    }
+  }
+  &__container {
+    padding: 0px 15px 15px;
+    @include mediaQuery-tablet {
+      margin: auto;
+      max-width: 960px;
+      padding: 40px 0 30px;
+    }
+    @include mediaQuery-pc {
+      max-width: 1280px;
+    }
+  }
+  &__form-group {
+    display: flex;
+    @include mediaQuery-tablet {
+      width: 50%;
+      margin: auto;
+    }
+    @include mediaQuery-pc {
+      width: 40%;
+    }
+  }
+  &__form {
+    flex: 1;
+    display: flex;
+  }
+  &__select {
+    flex: 1;
+  }
+  &__select:first-child {
+    margin-right: 10px;
+  }
+  &__button-search {
+    display: none;
+    flex-shrink: 0;
+    @include mediaQuery-tablet {
+      display: block;
+      margin-left: 10px;
+    }
+  }
+  &__button-position {
+    margin-left: 10px;
+    flex-shrink: 0;
+    @include mediaQuery-tablet {
+      display: none;
+    }
+  }
+}

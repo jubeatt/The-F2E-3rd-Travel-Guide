@@ -1,0 +1,226 @@
+.direction {
+  position: relative;
+  background-color: var(--gray-03);
+  @include mediaQuery-tablet {
+    background-color: var(--white);
+  }
+  &__mask {
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    z-index: 2;
+    background-color: var(--white);
+  }
+  &__content {
+    position: relative;
+    z-index: 3;
+  }
+  &::before,
+  &::after {
+    display: none;
+    content: '';
+    pointer-events: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    position: absolute;
+    top: 100%;
+    width: 50%;
+    height: 45px;
+    opacity: 0.3;
+    -webkit-filter: blur(8px);
+    filter: blur(8px);
+    transform: translateY(-25px);
+    z-index: 1;
+    @include mediaQuery-pc {
+      display: block;
+      -webkit-filter: blur(4px);
+      filter: blur(4px);
+    }
+  }
+  &::before {
+    right: 0;
+    background: linear-gradient(
+      to top right,
+      #fff 0%,
+      #fff 50%,
+      #0d0b0c 50%,
+      #0d0b0c 100%
+    );
+    @include mediaQuery-pc {
+      right: 0;
+    }
+  }
+  &::after {
+    left: 0;
+    background: linear-gradient(
+      to top left,
+      #fff 0%,
+      #fff 50%,
+      #0d0b0c 50%,
+      #0d0b0c 100%
+    );
+    @include mediaQuery-pc {
+      left: 0;
+    }
+  }
+  &__container {
+    padding: 0 15px;
+    @include mediaQuery-tablet {
+      max-width: 960px;
+      margin: auto;
+    }
+    @include mediaQuery-pc {
+      max-width: 1280px;
+    }
+  }
+  &__stations {
+    display: flex;
+    justify-content: center;
+    background-color: var(--white);
+    box-shadow: var(--box-shadow-01);
+    border-radius: 4px;
+    @include mediaQuery-tablet {
+      border-radius: 0;
+      box-shadow: none;
+    }
+  }
+  &__button-choose {
+    width: 50%;
+    text-align: center;
+    padding: 15px 0;
+    @include mediaQuery-tablet {
+      width: 30%;
+      border-bottom: 4px solid transparent;
+      &:first-child {
+        margin-right: 80px;
+      }
+      &--current {
+        border-bottom-color: var(--pink);
+      }
+    }
+    @include mediaQuery-pc {
+      width: 25%;
+    }
+  }
+  &__station-name {
+    margin-left: 0.3em;
+    color: var(--pink);
+  }
+}
+.timetable {
+  &__hint {
+    text-align: right;
+    color: var(--pink);
+    margin-bottom: 40px;
+  }
+  &__container {
+    @include mediaQuery-tablet {
+      position: relative;
+      max-width: 960px;
+      padding: 40px;
+      margin: auto;
+      background-color: var(--white);
+      &::before,
+      &::after {
+        content: '';
+        cursor: default;
+        pointer-events: none;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        position: absolute;
+        top: 100%;
+        width: 50%;
+        height: 45px;
+        opacity: 0.3;
+        -webkit-filter: blur(4px);
+        filter: blur(4px);
+        transform: translateY(-25px);
+        z-index: 1;
+      }
+      &::before {
+        right: 20px;
+        background: linear-gradient(
+          to top right,
+          #fff 0%,
+          #fff 50%,
+          #0d0b0c 50%,
+          #0d0b0c 100%
+        );
+      }
+      &::after {
+        left: 20px;
+        background: linear-gradient(
+          to top left,
+          #fff 0%,
+          #fff 50%,
+          #0d0b0c 50%,
+          #0d0b0c 100%
+        );
+      }
+    }
+    @include mediaQuery-pc {
+      max-width: 1280px;
+    }
+  }
+  &__content {
+    @include mediaQuery-tablet {
+      display: flex;
+      justify-content: center;
+      position: relative;
+      z-index: 3;
+    }
+  }
+  &__mask {
+    @include mediaQuery-tablet {
+      position: absolute;
+      top: 0;
+      right: 0;
+      left: 0;
+      bottom: 0;
+      z-index: 2;
+      background-color: var(--white);
+    }
+  }
+  .dynamic-list {
+    @include mediaQuery-tablet {
+      -moz-column-count: 2;
+      column-count: 2;
+      -moz-column-gap: 40px;
+      column-gap: 40px;
+    }
+    &__item {
+      font-size: 1.6rem;
+      margin-bottom: 30px;
+    }
+    &__status {
+      display: inline-block;
+      padding: 10px 15px;
+      border: 2px solid;
+      border-radius: 7px;
+      margin-right: 25px;
+      @include mediaQuery-tablet {
+        padding: 10px 45px;
+        margin-right: 35px;
+      }
+      &--off {
+        color: var(--gray-01);
+      }
+      &--on {
+        color: var(--white);
+        background-color: var(--pink);
+        border-color: var(--pink);
+      }
+      &--warning {
+        color: var(--white);
+        background-color: var(--yellow);
+        border-color: var(--yellow);
+      }
+    }
+  }
+}

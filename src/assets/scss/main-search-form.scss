@@ -1,0 +1,133 @@
+.main-search {
+  position: relative;
+  &__mask {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 2;
+    background-color: var(--white);
+  }
+  &__content {
+    position: relative;
+    z-index: 3;
+  }
+  &::before,
+  &::after {
+    content: '';
+    pointer-events: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    position: absolute;
+    top: 100%;
+    width: 50%;
+    height: 45px;
+    opacity: 0.3;
+    -webkit-filter: blur(8px);
+    filter: blur(8px);
+    transform: translateY(-25px);
+    z-index: 1;
+    @include mediaQuery-tablet {
+      display: none;
+    }
+    @include mediaQuery-pc {
+      display: block;
+      -webkit-filter: blur(4px);
+      filter: blur(4px);
+    }
+  }
+  &::before {
+    right: 10px;
+    background: linear-gradient(
+      to top right,
+      #fff 0%,
+      #fff 50%,
+      #0d0b0c 50%,
+      #0d0b0c 100%
+    );
+    @include mediaQuery-pc {
+      right: 0;
+    }
+  }
+  &::after {
+    left: 10px;
+    background: linear-gradient(
+      to top left,
+      #fff 0%,
+      #fff 50%,
+      #0d0b0c 50%,
+      #0d0b0c 100%
+    );
+    @include mediaQuery-pc {
+      left: 0;
+    }
+  }
+  &__container {
+    padding: 0px 15px 15px;
+    background-color: var(--white);
+    @include mediaQuery-tablet {
+      padding: 40px 30px;
+      background-color: var(--gray-03);
+    }
+    @include mediaQuery-pc {
+      padding: 0 20px 20px 20px;
+      background-color: transparent;
+      background-color: var(--white);
+    }
+  }
+  &__background {
+    @include mediaQuery-pc {
+      background-image: url('../assets/images/banner.jpg');
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-position: center center;
+      background-color: rgba(0, 0, 0, 0.2);
+      background-blend-mode: multiply;
+      height: 500px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      // &--food {
+      //   background-image: url(../images/food-banner.jpg);
+      // }
+    }
+  }
+  &__text {
+    @include mediaQuery-tablet {
+      width: 60%;
+      margin: auto;
+    }
+    @include mediaQuery-pc {
+      width: auto;
+      margin: 0;
+      color: var(--white);
+    }
+  }
+  &__title {
+    display: none;
+    @include mediaQuery-pc {
+      display: block;
+      font-family: 'Roboto', sans-serif;
+      font-size: 5rem;
+      text-shadow: var(--text-shadow-01);
+      color: var(--white);
+    }
+  }
+  &__description {
+    display: none;
+    @include mediaQuery-pc {
+      display: block;
+      text-shadow: var(--text-shadow-01);
+    }
+  }
+  &__form-search {
+    display: none;
+    @include mediaQuery-tablet {
+      display: flex;
+      margin-bottom: 15px;
+    }
+  }
+}

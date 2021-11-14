@@ -1,0 +1,26 @@
+:root {
+  /* Reset 1rem = 10px */
+  font-size: 10px;
+
+  /* Basic colors */
+  --white: #fff;
+  --black: #000;
+
+  /* Project colors */
+  --pink: #ff1d6c;
+  --yellow: #ffb72c;
+  --green: #007350;
+  --dark: #0d0b0c;
+  --gray-01: #acacac;
+  --gray-02: #e5e5e5;
+  --gray-03: #f6f7fb;
+  --gray-04: #d2d2d2;
+
+  /* box-shadow */
+  --box-shadow-01: 0px 2px 4px 0px #0d0b0c33;
+  --box-shadow-02: 0px 4px 3px 0px #0d0b0c33;
+  --box-shadow-03: 0px -1px 7px -1px #0d0b0c33 inset;
+
+  /* text-shadow */
+  --text-shadow-01: 0px 4px 3px #0d0b0c33;
+}
