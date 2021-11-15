@@ -26,7 +26,6 @@ const routes = [
     path: '/Search',
     component: Search
   }
-
 ]
 
 const router = createRouter({

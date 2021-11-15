@@ -13,3 +13,9 @@ $width-pc: 1280px;
     @content;
   }
 }
+
+@mixin mediaQuery-except-pc {
+  @media screen and (max-width: $width-pc) {
+    @content;
+  }
+}

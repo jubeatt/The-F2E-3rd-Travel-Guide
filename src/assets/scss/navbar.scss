@@ -89,6 +89,14 @@
   &__button-search {
     position: absolute;
     top: 33px;
+    right: 65px;
+    @include mediaQuery-tablet {
+      display: none;
+    }
+  }
+  &__button-position {
+    position: absolute;
+    top: 33px;
     right: 15px;
     @include mediaQuery-tablet {
       display: none;
