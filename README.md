@@ -73,8 +73,8 @@
 
 ## 關於作者
 
-- Website - [Jim's blog](https://jubeatt.github.io/)
-- Facebook - [薛裕正](https://www.facebook.com/profile.php?id=100003593580513)
+- Website - [PeaNu's Paradise](https://jubeatt.github.io/)
+- Facebook - [個人臉書](https://www.facebook.com/profile.php?id=100003593580513)
 
 ## 致謝
 
@@ -82,15 +82,15 @@
 
 提到「修練精神時光屋」這個關鍵字，其實在過去我就略有所聞，不過真正讓我參加這次比賽的契機，是因為剛好在社群中看到了公告，引發了想要嘗試看看的心情。原本的我其實是蠻猶豫要不要參加的，因為自己沒有把握能做出什麼像樣的東西，深怕丟人現眼又打擊自己的自信心 😂。不過，後來還是秉持著一股「總要試試看嘛」的心情，所以還是鐵下心來報名了。當然，我也認為這是一個正確的選擇。
 
-雖然到了最後，我還是沒能在截直日前完成整份專案的目標。不過我明白自己盡力了，也看到自己做到了一些以前做不到的事情，例如說「切一個完整的 RWD 頁面」、「用 API 串接資料」、「用 Vue 做出網站」等，這些看似平凡的前端技術，對我來說卻是一種很大的肯定。
+雖然到了最後，我還是沒能在截直日前完成整份專案的目標。不過我明白自己盡力了，也看到自己做到了一些以前做不到的事情，例如說「切一個完整的 RWD 頁面」、「用 API 串接資料」、「用 Vue 做出網站」等。這些看似平凡的前端技術，對我來說卻是一種很大的肯定。
 
-想說的話雖然還有很多，但最重要的一件事情是「即便比賽已經結束，我仍會繼續努力下去。」，我希望自己在接下來的時間，能夠繼續把這份專案給完成，也希望能夠一步一步的優化、新增更多功能等。
+想說的話雖然還有很多，但最重要的一件事情是「即便比賽已經結束，我仍會繼續努力下去。」。我希望自己在接下來的時間，能夠繼續把這份專案給完成，也希望能夠一步一步的優化、新增更多功能等。
 
 學習是永無止盡的，期望各位都能有繼續堅持下去的心，一起成為更好、更棒的人 👍。
 
 ## 參考資料
 
-- [Vue 官方文檔](https://v3.vuejs.org/guide/introduction.html)
+- [Vue3.0 官方文檔](https://v3.vuejs.org/guide/introduction.html)
 - [重新認識 Vue.js](https://book.vue.tw/)
 - [How to style the option of an html "select" element?](https://stackoverflow.com/questions/7208786/how-to-style-the-option-of-an-html-select-element/7208825)
 - [完整解析 CSS 動畫 ( CSS Animation )](https://www.oxxostudio.tw/articles/201803/css-animation.html)
